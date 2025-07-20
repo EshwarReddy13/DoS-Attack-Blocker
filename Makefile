@@ -1,79 +1,62 @@
-# Makefile for Load Balancer Project (Unix/Linux)
+# Makefile for Load Balancer Project
+# CSCE 412 Project 3
 
-# Compiler
-CXX = g++
-CXXFLAGS = -std=c++11 -Iinclude -Wall -Wextra
+# Compiler and flags
+CC = g++
+CFLAGS = -Wall -Werror -Iinclude -Wno-unused-parameter -Wno-unused-variable -std=c++11
 
-# Folders
+# Directories
 SRC = src
 INC = include
 OBJ = obj
 
-# Files
-OBJS = $(OBJ)/main.o $(OBJ)/request.o $(OBJ)/webserver.o $(OBJ)/loadbalancer.o
-TARGET = loadbalancer
+# Target executable
+TARGET = loadbalancer.exe
+
+# Object files (in obj/ directory)
+OBJS = $(OBJ)/main.o $(OBJ)/loadbalancer.o $(OBJ)/webserver.o $(OBJ)/request.o
 
 # Default target
 all: $(TARGET)
 
-# Compile target
+# Main target - build the executable
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-# Object file compilation
-$(OBJ)/main.o: main.cpp
+# Object file rules (generate in obj/ directory)
+$(OBJ)/main.o: main.cpp $(INC)/loadbalancer.h $(INC)/webserver.h $(INC)/request.h
 	@mkdir -p $(OBJ)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c main.cpp -o $@
 
-$(OBJ)/%.o: $(SRC)/%.cpp $(INC)/%.h
+$(OBJ)/loadbalancer.o: $(SRC)/loadbalancer.cpp $(INC)/loadbalancer.h $(INC)/request.h
 	@mkdir -p $(OBJ)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $(SRC)/loadbalancer.cpp -o $@
+
+$(OBJ)/webserver.o: $(SRC)/webserver.cpp $(INC)/webserver.h $(INC)/request.h
+	@mkdir -p $(OBJ)
+	$(CC) $(CFLAGS) -c $(SRC)/webserver.cpp -o $@
+
+$(OBJ)/request.o: $(SRC)/request.cpp $(INC)/request.h
+	@mkdir -p $(OBJ)
+	$(CC) $(CFLAGS) -c $(SRC)/request.cpp -o $@
 
 # Clean target
 clean:
 	@rm -rf $(OBJ)
 	@rm -f $(TARGET)
-	@rm -f log.txt
-	@rm -f loadbalancer_log.csv
+	@rm -f log.txt loadbalancer_log.csv assignment_log.txt
 	@echo "Cleanup complete!"
 
-# Install target (optional)
-install: $(TARGET)
-	@sudo cp $(TARGET) /usr/local/bin/
-	@echo "Load balancer installed to /usr/local/bin/"
-
-# Uninstall target
-uninstall:
-	@sudo rm -f /usr/local/bin/$(TARGET)
-	@echo "Load balancer uninstalled"
-
-# Run the program
-run: all
+# Run target
+run: $(TARGET)
 	./$(TARGET)
-
-# Debug build
-debug: CXXFLAGS += -g -DDEBUG
-debug: $(TARGET)
-
-# Release build
-release: CXXFLAGS += -O3 -DNDEBUG
-release: $(TARGET)
-
-# Doxygen docs
-docs:
-	@doxygen Doxyfile 2>/dev/null || echo "Doxygen not found. Install with: sudo apt-get install doxygen"
 
 # Help target
 help:
 	@echo "Available targets:"
-	@echo "  all      - Build the load balancer (default)"
-	@echo "  clean    - Remove build artifacts"
-	@echo "  run      - Build and run the load balancer"
-	@echo "  debug    - Build with debug symbols"
-	@echo "  release  - Build with optimization"
-	@echo "  install  - Install to /usr/local/bin/"
-	@echo "  uninstall- Remove from /usr/local/bin/"
-	@echo "  docs     - Generate documentation"
-	@echo "  help     - Show this help message"
+	@echo "  all     - Build the loadbalancer executable (default)"
+	@echo "  clean   - Remove executable and object files"
+	@echo "  run     - Build and run the program"
+	@echo "  help    - Show this help message"
 
-.PHONY: all clean install uninstall run debug release docs help
+.PHONY: all clean run help

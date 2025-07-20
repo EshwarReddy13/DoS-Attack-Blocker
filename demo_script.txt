@@ -1,0 +1,85 @@
+===========================================
+3-5 MINUTE DEMO SCRIPT
+===========================================
+
+INTRO (30 seconds):
+"Hi, I'm demonstrating my load balancer simulation for CSCE 412.
+This project implements a queue-based load balancer with dynamic server scaling
+and firewall protection against DOS attacks."
+
+DESIGN CHOICE (45 seconds):
+"My design uses three main components:
+- LoadBalancer class: manages the request queue and server scaling
+- WebServer class: processes individual requests  
+- Request struct: stores IP addresses and processing times
+
+I chose this design because it simulates real-world load balancing where
+requests queue up and servers are dynamically added/removed based on load."
+
+CODE WALKTHROUGH (1 minute):
+"Let me show you the key classes. Here's the LoadBalancer class - it maintains
+a queue of requests and a vector of servers. The processCycle method handles
+request assignment and server scaling.
+
+The WebServer class has methods to assign and process requests.
+The Request struct contains source/destination IPs and processing time.
+
+The firewall blocks suspicious IP ranges like 192.168.x.x and limits
+requests per IP to prevent DOS attacks."
+
+PROGRAM EXECUTION (1.5 minutes):
+"Now let's run the program. I'll start with 3 servers and 500 cycles.
+
+[Run: echo "3" > demo.txt && echo "10" >> demo.txt && echo "500" >> demo.txt && ./loadbalancer < demo.txt]
+
+Watch the output - you can see:
+- Queue size decreasing as requests are processed
+- Active server count changing
+- Firewall blocking suspicious IPs
+- Dynamic server scaling when needed"
+
+SCALING DEMONSTRATION (45 seconds):
+"Let me show server scaling with higher load:
+
+[Run: echo "2" > demo2.txt && echo "8" >> demo2.txt && echo "300" >> demo2.txt && ./loadbalancer < demo2.txt]
+
+Notice how servers are added when the queue grows beyond capacity,
+and removed when the load decreases. This demonstrates the dynamic
+scaling feature that optimizes resource usage."
+
+CONCLUSION (30 seconds):
+"This load balancer successfully demonstrates:
+- Queue-based request management
+- Dynamic server scaling
+- Firewall protection
+- Real-time status monitoring
+
+The simulation shows how modern load balancers handle varying loads
+while protecting against malicious traffic."
+
+===========================================
+QUICK COMMANDS FOR DEMO:
+===========================================
+
+Demo 1 (Normal Operation):
+echo "3" > demo.txt
+echo "10" >> demo.txt
+echo "500" >> demo.txt
+./loadbalancer < demo.txt
+
+Demo 2 (Scaling):
+echo "2" > demo2.txt
+echo "8" >> demo2.txt
+echo "300" >> demo2.txt
+./loadbalancer < demo2.txt
+
+===========================================
+RUBRIC COVERAGE:
+===========================================
+
+✅ Design Choice (20 pts) - Explained in intro and design sections
+✅ Show Classes and Structures (20 pts) - Code walkthrough section
+✅ User Input and Execution (20 pts) - Program execution section
+✅ Dynamic Server Scaling (30 pts) - Scaling demonstration section
+
+Total: 90 points 
