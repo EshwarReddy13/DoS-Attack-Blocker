@@ -1,0 +1,34 @@
+# Build artifacts
+obj/
+*.o
+*.exe
+loadbalancer
+loadbalancer.exe
+
+# Log files (generated during runtime)
+*.log
+log.txt
+loadbalancer_log.csv
+
+# Documentation build (optional - you can include this if you want)
+# docs/
+
+# IDE files
+.vscode/
+.vs/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+nul
+-p/
+
+# Backup files
+*~
+*.bak 
