@@ -4,6 +4,45 @@
 
 This project implements a C++ simulation of a load balancer that manages web requests across multiple servers. The simulation demonstrates dynamic server scaling, request queue management, and performance monitoring in a distributed computing environment.
 
+## Prerequisites
+
+### Required Software
+- **C++ Compiler**: GCC 4.8+ or Clang 3.3+ or MSVC 2015+
+  - **Windows**: MinGW-w64, Visual Studio, or WSL with GCC
+  - **macOS**: Xcode Command Line Tools or Homebrew GCC
+  - **Linux**: GCC (usually pre-installed)
+- **Make**: For building with Makefile
+  - **Windows**: MinGW Make, or use the provided batch files
+  - **macOS/Linux**: Usually pre-installed
+
+### Optional Software
+- **Doxygen**: For generating documentation
+  - **Windows**: Download from [doxygen.nl](https://www.doxygen.nl/download.html)
+  - **macOS**: `brew install doxygen`
+  - **Ubuntu/Debian**: `sudo apt-get install doxygen`
+- **Git**: For version control (recommended)
+
+### System Requirements
+- **RAM**: 512MB minimum, 2GB recommended
+- **Storage**: 100MB free space
+- **OS**: Windows 10+, macOS 10.14+, or Linux (any modern distribution)
+
+### Verifying Installation
+To verify your setup, run these commands:
+
+```bash
+# Check C++ compiler
+g++ --version
+
+# Check Make
+make --version
+
+# Check Doxygen (optional)
+doxygen --version
+```
+
+If any command fails, install the missing software using the instructions above.
+
 ## Features
 
 - **Request Management**: Simulates web requests with random IP addresses and processing times

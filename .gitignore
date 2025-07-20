@@ -10,9 +10,6 @@ loadbalancer.exe
 log.txt
 loadbalancer_log.csv
 
-# Documentation build (optional - you can include this if you want)
-# docs/
-
 # IDE files
 .vscode/
 .vs/
